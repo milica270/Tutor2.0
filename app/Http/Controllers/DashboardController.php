@@ -32,15 +32,15 @@ class DashboardController extends Controller
 
 
                 $now = Carbon::now();
-        $today = $now->toDateString(); // Format YYYY-MM-DD
-        $currentTime = $now->format('H:i:s'); // Format HH:MM:SS
+        $today = $now->toDateString(); 
+        $currentTime = $now->format('H:i:s'); 
         
                 $schedules = Schedule::where('user_id', $user->id)
                 ->where('accepted', 1)
                 ->where(function ($query) use ($today, $currentTime) {
-                    $query->where('date', '>', $today) // Budući datumi
+                    $query->where('date', '>', $today) 
                           ->orWhere(function ($q) use ($today, $currentTime) {
-                              $q->where('date', $today) // Današnji dan
+                              $q->where('date', $today) 
                                 ->whereIn('hour_id', function ($subquery) use ($currentTime) {
                                     $subquery->select('id')
                                              ->from('hours')
@@ -78,7 +78,7 @@ class DashboardController extends Controller
 
     public function submit_tutor_subjects(Request $request)
 {
-    // Validate the incoming request
+    
     $validated = $request->validate([
         'subjects' => 'required|array|min:1',
         'subjects.*.subjectId' => 'required|integer|exists:subjects,id',
@@ -87,13 +87,13 @@ class DashboardController extends Controller
 
 
 
-    // Get the logged-in user's ID
-    $user = Auth::user();   // Retrieves the authenticated user
+    
+    $user = Auth::user();   
     $tutorId = $user->id; 
 
-    // Iterate over the submitted subjects
+    
     foreach ($validated['subjects'] as $subject) {
-        // Check if the tutor has already submitted a request for this subject
+        
         $exists = DB::table('tutor_subject')
             ->where('tutor_id', $tutorId)
             ->where('subject_id', $subject['subjectId'])
@@ -102,7 +102,7 @@ class DashboardController extends Controller
         if ($exists) {
             continue;
         }
-        // Insert the new tutor-subject relationship
+        
         DB::table('tutor_subject')->insert([
             'tutor_id' => $tutorId,
             'subject_id' => $subject['subjectId'],
@@ -113,7 +113,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    // Return a success response
+    
     return redirect()->back()->with('success', 'Subjects submitted successfully.');
 }
 
@@ -144,7 +144,7 @@ public function results(Request $request)
     $tutorsWithGrades = $tutors->map(function ($tutor) use ($subject) {
         $subjectData = $tutor->subjects->firstWhere('id', $subject);
 
-        // Pronalazimo prvi slobodan termin
+        
         $firstAvailableDate = $this->getFirstAvailableDate($tutor->id);
 
 
@@ -179,12 +179,12 @@ private function getFirstAvailableDate($tutorId)
 {
     $currentDate = Carbon::now();
 
-    // Uzimamo termine iz `appointments` tabele za ovog tutora
+   
     $appointments = DB::table('appointments')
         ->where('tutor_id', $tutorId)
-        ->get(['day', 'hour_id']); // Sada dobijamo sve termine, ne samo jedan po danu
+        ->get(['day', 'hour_id']); 
 
-    // Ako tutor nema definisane termine, vraćamo da nema dostupnih termina
+    
     if ($appointments->isEmpty()) {
         return 'Nema dostupnih termina';
     }
@@ -201,7 +201,7 @@ private function getFirstAvailableDate($tutorId)
 
     $possibleDates = [];
 
-    // Iteracija kroz sve termine
+    
     foreach ($appointments as $appointment) {
         $day = $appointment->day;
         $hourId = $appointment->hour_id;
@@ -218,22 +218,22 @@ private function getFirstAvailableDate($tutorId)
 
         
 
-        // Prvi naredni datum za dati dan u sedmici
+        
         $nextDate = $currentDate->copy()->next($dayNumber);
 
        
 
-        // Proveravamo da li je termin zauzet u `schedules` tabeli
+        
         while (DB::table('schedules')
             ->where('tutor_id', $tutorId)
             ->where('date', $nextDate->format('Y-m-d'))
             ->where('hour_id', $hourId)
             ->exists()) {
-            // Ako jeste zauzet, pomeramo za jednu nedelju unapred
+            
             $nextDate->addWeek();
         }
 
-        // Dodajemo slobodan termin u niz mogućih datuma
+        
         $possibleDates[] = [
             'date' => $nextDate->format('Y-m-d'),
             'hour_id' => $hourId
@@ -241,7 +241,7 @@ private function getFirstAvailableDate($tutorId)
         
     }
 
-    // Ako nema slobodnih termina, vraćamo odgovarajući tekst
+    
     if (empty($possibleDates)) {
         return 'Nema dostupnih termina';
     }

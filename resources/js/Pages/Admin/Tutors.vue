@@ -157,7 +157,7 @@ const stopTutor = (user) => {
     router.put(route('stop_tutor', { id: user.id }), {
         onSuccess: () => {
             alert('Uspješno ste uklonili tutora!');
-            // Close the modal
+           
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
         },
@@ -168,7 +168,7 @@ const deleteSubject = (userId, subjectId) => {
     router.put(route('delete_subject_from_tutor', { id: userId, subject_id: subjectId }), {
         onSuccess: () => {
             alert('Uspješno ste uklonili predmet od tutora!');
-            // Close the modal
+           
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
         },

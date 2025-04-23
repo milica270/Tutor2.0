@@ -57,7 +57,6 @@
 
 
                 <form @submit.prevent="find">
-                    <!-- Subject Select -->
                     <div class="mb-3">
                         <label for="subjects" class="form-label fw-bold text-secondary">
                             Predmet sa kojim imaš problem:
@@ -70,7 +69,6 @@
                         </select>
                     </div>
 
-                    <!-- Details Textarea -->
                     <div class="mb-3">
                         <label for="details" class="form-label fw-bold text-secondary">
                             Pojasni šta tačno želiš da učiš sa tutorom:
@@ -84,7 +82,6 @@
                             style="resize: none"
                         ></textarea>
                     </div>
-                    <!-- Submit Button -->
                     <div class="text-end">
                         <button type="submit" class="btn btn1">
                             Pronađi Tutore <i class="bi bi-search"></i>

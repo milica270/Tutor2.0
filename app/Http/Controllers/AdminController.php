@@ -44,14 +44,14 @@ class AdminController extends Controller
 
     public function admin5() {
         $now = Carbon::now();
-        $today = $now->toDateString(); // Current date in YYYY-MM-DD format
-        $currentTime = $now->format('H:i:s'); // Current time in HH:MM:SS format
+        $today = $now->toDateString(); 
+        $currentTime = $now->format('H:i:s'); 
 
         $schedules = Schedule::where('accepted', 1)
             ->where(function ($query) use ($today, $currentTime) {
-                $query->where('date', '<', $today) // Past dates
+                $query->where('date', '<', $today) 
                     ->orWhere(function ($q) use ($today, $currentTime) {
-                        $q->where('date', $today) // Today’s date
+                        $q->where('date', $today)
                             ->whereIn('hour_id', function ($subquery) use ($currentTime) {
                                 $subquery->select('id')
                                         ->from('hours')
@@ -77,7 +77,7 @@ class AdminController extends Controller
 
     public function acceptTutor(Request $request)
     {
-        $id = $request->input('id1'); // Updated to match the new parameter name
+        $id = $request->input('id1'); 
         
 
         $subject = DB::table('tutor_subject')->where('id', $id)->first();
@@ -89,14 +89,14 @@ class AdminController extends Controller
                 ->update(['accepted' => 1]);
 
             DB::table('users')
-            ->where('id', $subject->tutor_id) // Assuming 'tutor_id' is the user ID
+            ->where('id', $subject->tutor_id) 
             ->update(['is_tutor' => 1]);
     
-            // Set a success message in the session
+            
             return redirect()->back()->with('success', 'Uspješno ste prihvatili tutora.');
         }
     
-        // Set an error message in the session
+        
         return redirect()->back()->with('error', 'Tutor nije pronađen.');
     }
 

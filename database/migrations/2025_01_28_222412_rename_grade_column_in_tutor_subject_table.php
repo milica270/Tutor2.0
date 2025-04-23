@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tutor_subject', function (Blueprint $table) {
-            $table->renameColumn('grade', 'subject_grade'); // Renaming 'grade' to 'subject_grade'
+            $table->renameColumn('grade', 'subject_grade'); 
         });
     }
 

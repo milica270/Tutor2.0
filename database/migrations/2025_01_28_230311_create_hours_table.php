@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('hours', function (Blueprint $table) {
             $table->id();
-            $table->time('begin_time'); // Start time of the hour
-            $table->time('end_time');   // End time of the hour
+            $table->time('begin_time'); 
+            $table->time('end_time');   
             $table->timestamps();
         });
     }

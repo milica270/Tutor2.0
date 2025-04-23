@@ -81,22 +81,16 @@
                                     alt="User Avatar" 
                                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%">
                             </td>
-                            <!-- Ime i Prezime -->
                             <td>{{ getUserFullName(request.tutor_id) }}</td>
                             
-                            <!-- Razred -->
                             <td>{{ romanNum(getUserGrade(request.tutor_id)) }}</td>
                             
-                            <!-- Predmet -->
                             <td>{{ getSubjectName(request.subject_id) }}</td>
                             
-                            <!-- Detalji -->
                             <td>{{ request.details }}</td>
                             
-                            <!-- Datum -->
                             <td>{{ formatDate(request.date) }}</td>
                             
-                            <!-- Čas -->
                             <td>{{ request.hour_id }}.</td>
                             <td>
                                 <button class="btn btn-sm btn-danger" @click="declineRequest(request)">X</button>
@@ -133,22 +127,19 @@
                                     alt="User Avatar" 
                                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%">
                             </td>
-                            <!-- Ime i Prezime -->
                             <td>{{ getUserFullName(request.tutor_id) }}</td>
                             
-                            <!-- Razred -->
                             <td>{{ romanNum(getUserGrade(request.tutor_id)) }}</td>
                             
-                            <!-- Predmet -->
                             <td>{{ getSubjectName(request.subject_id) }}</td>
                             
-                            <!-- Detalji -->
+                       
                             <td>{{ request.details }}</td>
                             
-                            <!-- Datum -->
+                     
                             <td>{{ formatDate(request.date) }}</td>
                             
-                            <!-- Čas -->
+                     
                             <td>{{ request.hour_id }}.</td>
                             <td>
                                 <button class="btn btn-sm btn-danger" @click="declineRequest(request)">X</button>
@@ -201,7 +192,7 @@ const declineRequest = (request) => {
 
 
 const getUserFullName = (userId) => {
-    const user1 = props.users.find((u) => u.id === userId);  // Search the users array, not requests
+    const user1 = props.users.find((u) => u.id === userId); 
     return user1 ? `${user1.name} ${user1.last_name}` : 'Unknown';
 };
 
@@ -210,9 +201,9 @@ const getUserAvatar = (userId) => {
     return user && user.avatar ? `../storage/${user.avatar}` : `../storage/avatars/default.jpg`;
 };
 
-// Function to get the user's grade
+
 const getUserGrade = (userId) => {
-    const user2 = props.users.find((u) => u.id === userId);  // Search the users array, not requests
+    const user2 = props.users.find((u) => u.id === userId);  
     return user2 ? user2.grade : 'Unknown';
 };
 

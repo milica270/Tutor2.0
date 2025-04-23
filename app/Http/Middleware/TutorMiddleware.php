@@ -17,10 +17,9 @@ class TutorMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check() && (Auth::user()->is_admin === 1 || Auth::user()->is_tutor === 1)) {
-            return $next($request);  // Ako je sve u redu, dozvolite pristup ruti
+            return $next($request);  
         }
 
-        // Ako nije odgovarajući mejl, preusmerite ga na dashboard (ili neku drugu stranicu)
         return redirect()->route('dashboard');
     }
 }

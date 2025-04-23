@@ -24,15 +24,15 @@ class Schedule extends Model
 
     public static function removeExpiredSchedules() {
         $now = Carbon::now();
-        $today = $now->toDateString(); // Trenutni datum (YYYY-MM-DD)
-        $currentTime = $now->format('H:i:s'); // Trenutno vreme (HH:MM:SS)
+        $today = $now->toDateString(); 
+        $currentTime = $now->format('H:i:s'); 
     
-        // Brišemo rasporede gde je datum prošao i accepted = 0
+        
         self::where('accepted', 0)
             ->where('date', '<=', $today)
             ->delete();
 
-        // Brišemo rasporede gde je današnji datum, ali je vreme već prošlo
+        
         self::where('accepted', 0)
         ->where('date', $today)
         ->whereIn('hour_id', function ($subquery) use ($currentTime) {

@@ -74,7 +74,7 @@
                         class="card shadow-sm p-3 rounded text-center position-relative" 
                         style="width: 120px; border: 1px solid var(--blue);"
                     >
-                        <!-- X Button -->
+                       
                         <button 
                             class="btn-close position-absolute" 
                             style="top: 5px; right: 5px;" 
@@ -82,7 +82,7 @@
                             aria-label="Close">
                         </button>
 
-                        <!-- Appointment Hour -->
+                       
                         <div class="fw-bold" style="font-size: 20px; color: var(--blue);">
                             {{ appointment.hour_id }}. čas
                             
@@ -91,7 +91,7 @@
                             {{getHour(appointment.hour_id)}}
                         </div>
 
-                        <!-- Appointment Day -->
+                       
                         <div class="text-muted" style="font-size: 16px;">
                             {{ days[appointment.day - 1] }}
                         </div>
@@ -102,7 +102,7 @@
                     <div class="card-body">
                         <h4 class="card-title text-center fw-bold">Dodaj novi termin</h4>
                         <form @submit.prevent="submitForm">
-                            <!-- Select Hour -->
+                          
                             <div class="mb-3">
                                 <label for="hour" class="form-label fw-bold">Izaberi čas:</label>
                                 <select v-model="form.hour_id" id="hour" class="form-select" required>
@@ -113,7 +113,7 @@
                                 </select>
                             </div>
                             <div class="blur" style="width: 22rem; height: 30rem; right: 0;"></div>
-                            <!-- Select Day -->
+                          
                             <div class="mb-3">
                                 <label for="day" class="form-label fw-bold">Odaberi dan:</label>
                                 <select v-model="form.day" id="day" class="form-select" required>
@@ -122,7 +122,6 @@
                                 </select>
                             </div>
 
-                            <!-- Submit Button -->
                             <button type="submit" class="btn btn1 w-100">Dodaj</button>
                         </form>
                     </div>
@@ -230,7 +229,7 @@ const stopTutor = (user) => {
     router.put(route('stop_tutor', { id: user.id }), {
         onSuccess: () => {
             alert('Uspješno ste uklonili tutora!');
-            // Close the modal
+            
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
         },
@@ -241,7 +240,7 @@ const deleteSubject = (userId, subjectId) => {
     router.put(route('delete_subject_from_tutor', { id: userId, subject_id: subjectId }), {
         onSuccess: () => {
             alert('Uspješno ste uklonili predmet od tutora!');
-            // Close the modal
+           
             const modal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
             modal.hide();
         },

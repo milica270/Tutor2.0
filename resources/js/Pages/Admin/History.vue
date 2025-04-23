@@ -87,7 +87,7 @@ const formatDate = (dateString) => {
 
 
 
-// Helper function to get tutor name
+
 const getUserName = (Id) => {
   const tutor = props.users.find(user => user.id === Id);
   return tutor ? `${tutor.name} ${tutor.last_name}` : 'Unknown';

@@ -86,18 +86,18 @@ const props = defineProps({
 
 
 const form = useForm({
-  id1: null, // This will store the ID of the subject being updated
+  id1: null, 
 });
 
 const form1 = useForm({
   id2: null, 
 });
 
-// Function to accept a tutor subject
+
 const acceptTutor = (id) => {
     form.id1 = id;
   form.put(route('accept.tutor'), {
-    preserveScroll: true, // Optional: Prevent page from scrolling
+    preserveScroll: true, 
     onSuccess: () => {
       
       alert('Uspješno ste prihvatili zahtjev. Novi tutor dodat.');
@@ -128,12 +128,11 @@ const refuseTutor = (id) => {
 
 const getTutorAvatar = (tutorId) => {
   const tutor = props.users.find(user => user.id === tutorId);
-  // Check if the avatar exists and return the correct path
+
   return tutor.avatar ? `/storage/${tutor.avatar}` : '/storage/avatars/default.jpg';
 };
 
 
-// Helper function to get tutor name
 const getTutorName = (tutorId) => {
   const tutor = props.users.find(user => user.id === tutorId);
   return tutor ? `${tutor.name} ${tutor.last_name}` : 'Unknown';

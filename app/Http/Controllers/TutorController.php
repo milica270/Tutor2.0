@@ -16,14 +16,14 @@ class TutorController extends Controller
         $user = Auth::user()->load(['major', 'subjects']);
         $appointments = \App\Models\Appointment::where('tutor_id', $user->id)->get();
         $now = Carbon::now();
-        $today = $now->toDateString(); // Format YYYY-MM-DD
-        $currentTime = $now->format('H:i:s'); // Format HH:MM:SS
+        $today = $now->toDateString(); 
+        $currentTime = $now->format('H:i:s'); 
         $schedules1 = Schedule::where('tutor_id', $user->id)
         ->where('accepted', 1)
         ->where(function ($query) use ($today, $currentTime) {
-            $query->where('date', '<', $today) // Budući datumi
+            $query->where('date', '<', $today) 
                   ->orWhere(function ($q) use ($today, $currentTime) {
-                      $q->where('date', $today) // Današnji dan
+                      $q->where('date', $today) 
                         ->whereIn('hour_id', function ($subquery) use ($currentTime) {
                             $subquery->select('id')
                                      ->from('hours')
@@ -34,7 +34,7 @@ class TutorController extends Controller
         ->get();
 
 
-        $scheduleCount = $schedules1->count(); // Count schedules
+        $scheduleCount = $schedules1->count(); 
         return Inertia::render('tutorDashboard', ['user' => $user, 'appointments' => $appointments, 'scheduleCount' => $scheduleCount ]);
     }
 
@@ -42,17 +42,17 @@ class TutorController extends Controller
         $user = Auth::user()->load(['major', 'subjects']);
         $users = User::all();
         $now = Carbon::now();
-        $today = $now->toDateString(); // Format YYYY-MM-DD
-        $currentTime = $now->format('H:i:s'); // Format HH:MM:SS
+        $today = $now->toDateString(); 
+        $currentTime = $now->format('H:i:s'); 
         $requests = Schedule::where('tutor_id', $user->id)
         ->where('accepted', 0)
         ->get();
         $schedules1 = Schedule::where('tutor_id', $user->id)
         ->where('accepted', 1)
         ->where(function ($query) use ($today, $currentTime) {
-            $query->where('date', '<', $today) // Budući datumi
+            $query->where('date', '<', $today) 
                   ->orWhere(function ($q) use ($today, $currentTime) {
-                      $q->where('date', $today) // Današnji dan
+                      $q->where('date', $today) 
                         ->whereIn('hour_id', function ($subquery) use ($currentTime) {
                             $subquery->select('id')
                                      ->from('hours')
@@ -63,7 +63,7 @@ class TutorController extends Controller
         ->get();
 
 
-        $scheduleCount = $schedules1->count(); // Count schedules
+        $scheduleCount = $schedules1->count(); 
         Schedule::removeExpiredSchedules();
         return Inertia::render('tutorDashboard1', ['user' => $user, 'users' => $users,  'requests' => $requests, 'scheduleCount' => $scheduleCount ]);
     }
@@ -73,15 +73,15 @@ class TutorController extends Controller
         $users = User::all();
 
         $now = Carbon::now();
-        $today = $now->toDateString(); // Format YYYY-MM-DD
-        $currentTime = $now->format('H:i:s'); // Format HH:MM:SS
+        $today = $now->toDateString(); 
+        $currentTime = $now->format('H:i:s'); 
 
         $schedules = Schedule::where('tutor_id', $user->id)
         ->where('accepted', 1)
         ->where(function ($query) use ($today, $currentTime) {
-            $query->where('date', '>', $today) // Budući datumi
+            $query->where('date', '>', $today) 
                   ->orWhere(function ($q) use ($today, $currentTime) {
-                      $q->where('date', $today) // Današnji dan
+                      $q->where('date', $today) 
                         ->whereIn('hour_id', function ($subquery) use ($currentTime) {
                             $subquery->select('id')
                                      ->from('hours')
@@ -96,9 +96,9 @@ class TutorController extends Controller
         $schedules1 = Schedule::where('tutor_id', $user->id)
         ->where('accepted', 1)
         ->where(function ($query) use ($today, $currentTime) {
-            $query->where('date', '<', $today) // Budući datumi
+            $query->where('date', '<', $today) 
                   ->orWhere(function ($q) use ($today, $currentTime) {
-                      $q->where('date', $today) // Današnji dan
+                      $q->where('date', $today) 
                         ->whereIn('hour_id', function ($subquery) use ($currentTime) {
                             $subquery->select('id')
                                      ->from('hours')
@@ -109,7 +109,7 @@ class TutorController extends Controller
         ->get();
 
 
-        $scheduleCount = $schedules1->count(); // Count schedules
+        $scheduleCount = $schedules1->count(); 
         return Inertia::render('tutorDashboard2', ['user' => $user, 'users' => $users, 'schedules' => $schedules, 'scheduleCount' => $scheduleCount ]);
     }
 
@@ -117,15 +117,15 @@ class TutorController extends Controller
         $user = Auth::user()->load(['major', 'subjects']);
         $users = User::all();
         $now = Carbon::now();
-        $today = $now->toDateString(); // Format YYYY-MM-DD
-        $currentTime = $now->format('H:i:s'); // Format HH:MM:SS
+        $today = $now->toDateString(); 
+        $currentTime = $now->format('H:i:s');
 
         $schedules = Schedule::where('tutor_id', $user->id)
         ->where('accepted', 1)
         ->where(function ($query) use ($today, $currentTime) {
-            $query->where('date', '<', $today) // Budući datumi
+            $query->where('date', '<', $today) 
                   ->orWhere(function ($q) use ($today, $currentTime) {
-                      $q->where('date', $today) // Današnji dan
+                      $q->where('date', $today) 
                         ->whereIn('hour_id', function ($subquery) use ($currentTime) {
                             $subquery->select('id')
                                      ->from('hours')
@@ -136,7 +136,7 @@ class TutorController extends Controller
         ->get();
 
 
-        $scheduleCount = $schedules->count(); // Count schedules
+        $scheduleCount = $schedules->count(); 
         return Inertia::render('tutorDashboard3', ['user' => $user, 'users' => $users, 'schedules' => $schedules, 'scheduleCount' => $scheduleCount ]);
     }
 
@@ -144,23 +144,23 @@ class TutorController extends Controller
 
 
     
-        // Validate the request data
+        
         $request->validate([
-            'hour_id' => 'required|integer|between:1,8', // Hour must be between 1 and 8
-            'day' => 'required|integer|between:1,5', // Day must be between 1 (Monday) and 5 (Friday)
+            'hour_id' => 'required|integer|between:1,8', 
+            'day' => 'required|integer|between:1,5', 
         ]);
     
-        // Get the authenticated user's ID (tutor ID)
+        
         $tutorId = Auth::id();
     
-        // Create a new appointment record
+        
         $appointment = \App\Models\Appointment::create([
-            'hour_id' => $request->hour_id,  // Store the hour_id
-            'day' => $request->day,          // Store the day
-            'tutor_id' => $tutorId,          // Store the tutor's ID
+            'hour_id' => $request->hour_id,  
+            'day' => $request->day,          
+            'tutor_id' => $tutorId,          
         ]);
     
-        // Return a response (can be a redirect, JSON response, etc.)
+        
         return redirect()->back()->with('success', 'Termin uspješno dodan!');
     }
     

@@ -5,9 +5,12 @@
     </Head>
     <nav class="navbar" style="background-color: var(--darkGrey)">
         <div class="container">
+            <div>
             <Link class="navbar-brand" href="/">
                 <img style="border-radius: 20px" src="/public/storage/images/logo.jpg" alt="Bootstrap" width="50" height="40">
             </Link>
+            <Link :href="route('instructions')"><strong>Uputstvo <i class="bi bi-info-circle"></i></strong></Link>
+            </div>
             <div class="d-flex gap-4 align-items-center" v-if="$page.props.auth.user">
                 <div v-if="($page.props.auth.user.is_admin) === 1">
                     <Link class="link_style" :href="route('admin1')">Admin</Link>

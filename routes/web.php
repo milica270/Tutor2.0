@@ -14,6 +14,10 @@ Route::get('/', function () {
     return Inertia::render('Home');
 })->name('home');
 
+Route::get('/instructions', function () {
+    return Inertia::render('Instructions');
+})->name('instructions');
+
 Route::middleware(['guest'])->group(function () {
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
